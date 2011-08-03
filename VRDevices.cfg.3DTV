@@ -1,0 +1,86 @@
+########################################################################
+# Configuration file for the Vrui VR device driver daemon.
+# Copyright (c) 2002-2009 Oliver Kreylos
+# 
+# This file is part of the Virtual Reality User Interface Library
+# (Vrui).
+# 
+# The Virtual Reality User Interface Library is free software; you can
+# redistribute it and/or modify it under the terms of the GNU General
+# Public License as published by the Free Software Foundation; either
+# version 2 of the License, or (at your option) any later version.
+# 
+# The Virtual Reality User Interface Library is distributed in the hope
+# that it will be useful, but WITHOUT ANY WARRANTY; without even the
+# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+# PURPOSE.  See the GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with the Virtual Reality User Interface Library; if not, write
+# to the Free Software Foundation, Inc., 59 Temple Place, Suite 330,
+# Boston, MA 02111-1307 USA
+########################################################################
+
+section "localhost"
+	section DeviceManager
+		deviceNames (OptiTrack, Wiimote1, Wiimote2)
+		
+		section OptiTrack
+			deviceType VRPNClient
+			serverName 136.159.94.167
+			
+			senderNames (head, wand1, wand2)
+
+			calibratorType TransformCalibrator
+			calibratorName Calibrator
+
+			trackerPostTransformation0 translate (0.0, 0.0, 0.0) \
+						   * rotate (1.0, 0.0, 0.0), 180.0 \
+			                           * rotate (0.0, 1.0, 0.0), 00.0
+			trackerPostTransformation1 translate (0.0, 0.0, 0.0) \
+						   * rotate (1.0, 0.0, 0.0), -90.0 \
+						   * translate (-1.50, 0.0, 0.0)
+			trackerPostTransformation2 translate (0.0, 0.0, 0.0) \
+						   * rotate (1.0, 0.0, 0.0), -90.0 \
+			                           * translate (1.50, 0.0, 0.0)
+			
+			section head
+				numTrackers 1
+			endsection
+			
+			section wand1
+				numTrackers 1
+			endsection
+
+			section wand2
+				numTrackers 1
+			endsection
+			
+			section Calibrator
+				transformation translate (0.0, 0.0, 0.0) \
+				               * scale 39.370079 \
+				               * rotate (1.0, 0.0, 0.0), 90.0
+			endsection
+		endsection
+		
+		# Nintendo Wii controller
+		section Wiimote1
+			deviceType WiimoteTracker
+			deviceName "A4:5C:27:04:78:C4"
+			enableTracker false
+		endsection
+
+		# Nintendo Wii controller
+		section Wiimote2
+			deviceType WiimoteTracker
+			deviceName "A4:5C:27:04:20:C4"
+			enableTracker false
+			buttonIndexBase 13
+		endsection
+	endsection
+	
+	section DeviceServer
+		serverPort 8555
+	endsection
+endsection
+

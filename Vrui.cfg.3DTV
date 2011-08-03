@@ -1,0 +1,627 @@
+########################################################################
+# Configuration file for the Vrui run-time environment.
+# Copyright (c) 2002-2009 Oliver Kreylos
+# 
+# This file is part of the Virtual Reality User Interface Library
+# (Vrui).
+# 
+# The Virtual Reality User Interface Library is free software; you can
+# redistribute it and/or modify it under the terms of the GNU General
+# Public License as published by the Free Software Foundation; either
+# version 2 of the License, or (at your option) any later version.
+# 
+# The Virtual Reality User Interface Library is distributed in the hope
+# that it will be useful, but WITHOUT ANY WARRANTY; without even the
+# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+# PURPOSE.  See the GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with the Virtual Reality User Interface Library; if not, write
+# to the Free Software Foundation, Inc., 59 Temple Place, Suite 330,
+# Boston, MA 02111-1307 USA
+########################################################################
+
+section Vrui
+	
+	# Configuration for desktop environments:
+	section Desktop
+		inchScale 1.0
+		displayCenter (0.0, 0.0, 0.0)
+		displaySize 10.0
+		forwardDirection (0.0, 1.0, 0.0)
+		upDirection (0.0, 0.0, 1.0)
+		floorPlane (0.0, 0.0, 1.0), -48.0
+		glyphSize 0.333
+		newInputDevicePosition (0.0, -1.0, 0.0)
+		inputDeviceAdapterNames (MouseAdapter)
+		updateContinuously false
+		viewerNames (Viewer)
+		screenNames (Screen)
+		windowNames (Window)
+		listenerNames (Listener)
+		soundContextName (SoundContext)
+		frontplaneDist 1.0
+		backplaneDist 1000.0
+		backgroundColor (0.0, 0.0, 0.0, 1.0)
+		ambientLightColor (0.1, 0.1, 0.1)
+		drawOverlayWidgets true
+		popWidgetsOnScreen true
+		widgetMaterial { AmbientDiffuse = (0.7, 0.7, 0.7); \
+		                 Specular = (0.4, 0.4, 0.4); \
+		                 Shininess = 25.0; }
+		uiSize 0.075
+		uiBgColor (0.67, 0.67, 0.67)
+		uiFgColor (0.0, 0.0, 0.0)
+		uiTextFieldBgColor (1.0, 1.0, 0.5)
+		uiTextFieldFgColor (0.0, 0.0, 0.0)
+		uiFontName TimesBoldItalic12
+		uiFontTextHeight 0.15
+		uiFontAntialiasing true
+		uiSliderWidth 0.225
+		tools Tools
+		vislets Vislets
+		
+		section MouseAdapter
+			inputDeviceAdapterType Mouse
+			numButtons 3
+			buttonKeys (LeftShift, z, q, w, a, s, d, \
+			            1, 2, 3, 4, 5, 6, 7, 8, 9, 0, \
+			            Tab, Num0, Num1, Num2, Num3, Num4, Num5, Num6, Num7, Num8, Num9, NumEnter)
+			modifierKeys (LeftCtrl, LeftAlt)
+		endsection
+		
+		# Screen is currently configured as 20" 4:3 flat panel; size will be
+		# adjusted automatically during window initialization.
+		
+		section Screen
+			name Screen
+			deviceMounted false
+			origin (-8.0, 0.0, -6.0)
+			horizontalAxis (1.0, 0.0, 0.0)
+			width 16.0
+			verticalAxis (0.0, 0.0, 1.0)
+			height 12.0
+		endsection
+		
+		# Viewer is currently configured to a fixed position, 24" back from
+		# the center of the screen. Adjust this to your typical real viewing
+		# position for optimal results.
+		
+		section Viewer
+			name Viewer
+			headTracked false
+			headDeviceTransformation translate (0.0, -24.0, 0.0)
+			viewDirection (0.0, 1.0, 0.0)
+			monoEyePosition (0.0, 0.0, 0.0)
+			leftEyePosition (-1.25, 0.0, 0.0)
+			rightEyePosition (1.25, 0.0, 0.0)
+			headLightEnabled true
+			headLightPosition (0.0, 0.0, 0.0)
+			headLightDirection (0.0, 1.0, 0.0)
+			headLightColor (1.0, 1.0, 1.0)
+			headLightSpotCutoff 180.0
+			headLightSpotExponent 0.0
+		endsection
+		
+		section Window
+			display :0.1
+			windowPos (0, 0), (1920, 1080)
+			windowFullscreen false
+			
+			# Uncomment one of the following lines to select the window's stereo mode:
+			windowType SplitViewportStereo # Mono # No stereo
+			# windowType AnaglyphicStereo # Red/blue stereo
+			leftViewportPos (0, 0), (960, 1080)
+			rightViewportPos(960, 0), (960, 1080)
+			multisamplingLevel 1
+			screenName Screen
+			viewerName Viewer
+			autoScreenSize true
+			panningViewport true
+			navigate true
+			toolKillZonePos (0,0)
+			showFps false
+			showFpsFontName HelveticaMediumUpright12
+			protectScreens false
+		endsection
+		
+		section Listener
+			name Listener
+			headTracked false
+			headDeviceTransformation translate (0.0, -24.0, 0.0)
+			headPosition (0.0, 0.0, 0.0)
+			listenDirection (0.0, 1.0, 0.0)
+			upDirection (0.0, 0.0, 1.0)
+			gain 1.0
+		endsection
+		
+		section SoundContext
+			listenerName Listener
+			deviceName Default
+		endsection
+		
+		section Tools
+			toolClassNames (SixDofLocatorTool, \
+			                ScreenLocatorTool, \
+			                WaldoLocatorTool, \
+			                SixDofDraggingTool, \
+			                WaldoDraggingTool, \
+			                SixDofNavigationTool, \
+			                TrackballNavigationTool, \
+			                MouseNavigationTool, \
+			                MouseDialogNavigationTool, \
+			                MouseSurfaceNavigationTool, \
+			                FPSNavigationTool, \
+			                DesktopDeviceNavigationTool, \
+			                HelicopterNavigationTool, \
+			                ViewpointFileNavigationTool, \
+			                ComeHitherNavigationTool, \
+			                MouseTool, \
+			                TwoRayTransformTool, \
+			                DesktopDeviceTool, \
+			                EyeRayTool, \
+			                OffsetTool, \
+			                WaldoTool, \
+			                ClutchTool, \
+			                RevolverTool, \
+			                RayMenuTool, \
+			                RayScreenMenuTool, \
+			                PanelMenuTool, \
+			                SixDofInputDeviceTool, \
+			                RayInputDeviceTool, \
+			                PlaneSnapInputDeviceTool, \
+			                ButtonInputDeviceTool, \
+			                WidgetTool, \
+			                LaserpointerTool, \
+			                ClipPlaneTool, \
+			                JediTool, \
+			                FlashlightTool, \
+			                MeasurementTool, \
+			                ScreenshotTool, \
+			                SketchingTool, \
+			                ViewpointSaverTool, \
+			                CurveEditorTool)
+			toolSelectionMenuToolClass RayScreenMenuTool
+			killZoneType Frustum
+			killZoneViewerName Viewer
+			killZoneScreenName Screen
+			killZoneCenter (7.75, 0.0, -5.85)
+			killZoneSize (0.5, 0.1, 0.3)
+			killZoneRender true
+			killZoneMaterial { AmbientDiffuse = (1.0, 0.0, 0.0); \
+			                   Specular = (0.2, 0.2, 0.2); \
+			                   Shininess = 20.0; }
+			toolNames (MouseNavTool, \
+			           FPSNavTool, \
+			           MenuTool)
+			
+			section UserInterfaceTool
+				useEyeRay true
+			endsection
+			
+			section RayScreenMenuTool
+				interactWithWidgets false
+			endsection
+			
+			section MeasurementTool
+				saveMeasurements true
+			endsection
+			
+			section MouseNavTool
+				toolClass MouseNavigationTool
+				deviceName0 Mouse
+				device0ButtonIndex0 0
+				
+				# Set device0ButtonIndex1 to 1 instead of 4 to use the
+				# middle mouse button for panning and zooming/dollying
+				# instead of the "z" key
+				device0ButtonIndex1 1
+				
+				device0ButtonIndex2 3
+				device0ValuatorIndex0 0
+			endsection
+			
+			section FPSNavTool
+				toolClass FPSNavigationTool
+				deviceName0 Mouse
+				device0ButtonIndex0 5
+				device0ButtonIndex1 7
+				device0ButtonIndex2 9
+				device0ButtonIndex3 8
+				device0ButtonIndex4 6
+			endsection
+			
+			section MenuTool
+				toolClass RayScreenMenuTool
+				deviceName0 Mouse
+				device0ButtonIndex0 2
+			endsection
+		endsection
+	endsection
+
+	# Section for IQ-Station:
+	section "3DTV"
+		inchScale 1.0
+		displayCenter (0.0, 0.0, 0.0)
+		displaySize 32.0
+		forwardDirection (0.0, 1.0, 0.0)
+		upDirection (0.0, 0.0, 1.0)
+		floorPlane (0.0, 0.0, 1.0), -50.0
+		glyphSize 1.5
+		newInputDevicePosition (0.0, -1.0, 0.0)
+		inputDeviceAdapterNames (MouseAdapter, DeviceDaemonAdapter)
+		updateContinuously false
+		viewerNames (Viewer)
+		screenNames (Screen)
+		windowNames (Window)
+		frontplaneDist 1.0
+		backplaneDist 10000.0
+		backgroundColor (0.0, 0.0, 0.0, 1.0)
+		ambientLightColor (0.1, 0.1, 0.1)
+		drawOverlayWidgets true
+		popWidgetsOnScreen true
+		widgetMaterial { AmbientDiffuse = (0.7, 0.7, 0.7); \
+		                 Specular = (0.4, 0.4, 0.4); \
+		                 Shininess = 25.0; }
+		uiSize 0.3
+		uiBgColor (0.67, 0.67, 0.67)
+		uiFgColor (0.0, 0.0, 0.0)
+		uiTextFieldBgColor (1.0, 1.0, 0.5)
+		uiTextFieldFgColor (0.0, 0.0, 0.0)
+		uiFontName TimesBoldItalic12
+		uiFontTextHeight 0.6
+		uiFontAntialiasing true
+		uiSliderWidth 0.9
+		tools Tools
+		vislets Vislets
+		
+		section MouseAdapter
+			inputDeviceAdapterType Mouse
+			numButtons 3
+			buttonKeys (LeftShift, z, q, w, a, s, d, \
+			            1, 2, 3, 4, 5, 6, 7, 8, 9, 0, \
+			            Tab, Num0, Num1, Num2, Num3, Num4, Num5, Num6, Num7, Num8, Num9, NumEnter)
+			modifierKeys (LeftAlt, LeftCtrl)
+		endsection
+		
+		section DeviceDaemonAdapter
+			inputDeviceAdapterType DeviceDaemon
+			serverName IQ-Graphics
+			serverPort 8555
+			inputDeviceNames (head, wand1, wand2)
+			
+			section head
+				name head
+				trackType 6D
+				trackerIndex 0
+				numButtons 0
+				numValuators 0
+			endsection
+			
+			section wand1
+				name wand1
+				trackType 6D
+				trackerIndex 1
+				buttonIndexBase 0
+				numButtons 13
+				numValuators 2
+				deviceGlyphType Cone
+			endsection
+
+			section wand2
+				name wand2
+				trackType 6D
+				trackerIndex 2
+				buttonIndexBase 13
+				numButtons 11
+				# numValuators 2
+				deviceGlyphType Cone
+			endsection
+		endsection
+
+		section Viewer
+			name Viewer
+			headTracked true
+			headDevice head
+			headDeviceTransformation translate (0.0, -16.0, 0.0)
+			viewDirection (0.0, 1.0, 0.0)
+			monoEyePosition (0.0, 0.0, 0.0)
+			leftEyePosition (-1.25, 0.0, 0.0)
+			rightEyePosition (1.25, 0.0, 0.0)
+			headLightEnabled true
+			headLightPosition (0.0, 0.0, 0.0)
+			headLightDirection (0.0, 1.0, 0.0)
+			headLightColor (1.0, 1.0, 1.0)
+			headLightSpotCutoff 180.0
+			headLightSpotExponent 0.0
+		endsection
+
+		section Screen
+			name Screen
+			deviceMounted false
+			origin (-28.5, 16.0, -16.0)
+			horizontalAxis (1.0, 0.0, 0.0)
+			width 57.0
+			verticalAxis (0.0, 0.0, 1.0)
+			height 32.0
+			offAxis false
+		endsection
+		
+		section Window
+			display :0.1
+			windowPos (0, 0), (1920, 1080)
+			windowFullscreen true
+			windowType SplitViewportStereo # Mono
+			leftViewportPos (0, 0), (960, 1080)
+			rightViewportPos(960, 0), (960, 1080)
+			multisamplingLevel 1
+			screenName Screen
+			viewerName Viewer
+			toolKillZonePos (1, 0)
+			autoScreenSize false
+			panningViewport false
+			navigate false
+			showFps true
+			showFpsFontName HelveticaMediumUpright12
+			protectScreens false
+		endsection
+		
+		section Tools
+			toolClassNames (SixDofLocatorTool, \
+			                WaldoLocatorTool, \
+			                ScreenLocatorTool, \
+			                SixDofDraggingTool, \
+			                WaldoDraggingTool, \
+			                SixDofNavigationTool, \
+			                WandNavigationTool, \
+			                MouseNavigationTool, \
+			                TwoHandedNavigationTool, \
+			                WalkNavigationTool, \
+			                TrackballNavigationTool, \
+			                FlyNavigationTool, \
+			                ValuatorFlyNavigationTool, \
+			                ValuatorTurnNavigationTool, \
+			                ValuatorFlyTurnNavigationTool, \
+			                ValuatorScalingNavigationTool, \
+			                ComeHitherNavigationTool, \
+			                ViewpointFileNavigationTool, \
+			                FPSNavigationTool, \
+			                HelicopterNavigationTool, \
+			                MouseTool, \
+			                TwoRayTransformTool, \
+			                EyeRayTool, \
+			                WaldoTool, \
+			                OffsetTool, \
+			                ClutchTool, \
+			                RevolverTool, \
+			                RayMenuTool, \
+			                RayScreenMenuTool, \
+			                WidgetTool, \
+			                SixDofInputDeviceTool, \
+			                RayInputDeviceTool, \
+			                ButtonInputDeviceTool, \
+			                LaserpointerTool, \
+			                ClipPlaneTool, \
+			                FlashlightTool, \
+			                JediTool, \
+			                MeasurementTool, \
+			                ScreenshotTool, \
+			                ViewpointSaverTool, \
+			                SketchingTool, \
+			                CurveEditorTool)
+			toolSelectionMenuToolClass RayMenuTool
+			killZoneType Frustum
+			killZoneViewerName Viewer
+			killZoneScreenName Screen
+			killZoneCenter (7.5, 0.0, -5.85)
+			killZoneSize (6.0, 0.1, 3.0)
+			killZoneRender true
+			killZoneMaterial { AmbientDiffuse = (1.0, 0.0, 0.0); \
+			                   Specular = (0.2, 0.2, 0.2); \
+			                   Shininess = 20.0; }
+			toolNames (MouseNavTool, \
+			           FPSNavTool, \
+			           MenuTool1, \
+ 				   WandMenuTool1, \
+				   WandMenuTool2, \
+				   WandNavTool1, \
+				   WandNavTool2, \
+ 				   WandFlyTool1)
+			
+			section MeasurementTool
+				saveMeasurements true
+			endsection
+			
+			section ValuatorFlyTurnNavigationTool
+                                valuatorThreshold 0.25
+                                flyDirection (0.0, -1.0, 0.0)
+        			flyFactor -120.0
+                                rotationAxis (0.0, 0.0, 1.0)
+				rotationCenter (0.0, 0.0, 0.0)
+                                rotationFactor 90.0
+        		endsection
+			
+			section TrackballNavigationTool
+				rotateFactor 3.0
+			endsection
+			
+			section WandNavigationTool
+				scaleFactor -8.0
+			endsection
+			
+			section MouseNavigationTool
+				rotatePlaneOffset 12.0
+				rotateFactor 12.0
+				screenDollyingDirection (0.0, -1.0, 0.0)
+				screenScalingDirection (0.0, -1.0, 0.0)
+				scaleFactor 12.0
+				dollyFactor 1.0
+				spinThreshold 1.0
+				showScreenCenter true
+				showMouseCursor false
+				mouseCursorSize (0.125, 0.2, 0.0)
+				mouseCursorHotspot (0.03, 0.94, 0.0)
+				mouseCursorNominalSize 36
+			endsection
+			
+			section MouseDialogNavigationTool
+				rotatePlaneOffset 12.0
+				rotateFactor 12.0
+				screenDollyingDirection (0.0, -1.0, 0.0)
+				screenScalingDirection (0.0, -1.0, 0.0)
+				scaleFactor 12.0
+				dollyFactor 1.0
+				showMouseCursor false
+				mouseCursorSize (0.125, 0.2, 0.0)
+				mouseCursorHotspot (0.03, 0.94, 0.0)
+				mouseCursorNominalSize 36
+			endsection
+			
+			section FPSNavigationTool
+				rotateFactor 12.0
+				moveSpeed 60.0
+			endsection
+			
+			section SpaceBallNavigationTool
+				numButtons 12
+				toggleButtonIndices (0,1,2, 9, 10)
+				rotationalAxes ((3, (1.0, 0.0, 0.0)), (4, (0.0, 0.0, 1.0)), (5, (0.0, 1.0, 0.0)))
+				rotateFactor 6.0
+				translationalAxes ((0, (1.0, 0.0, 0.0)), (1, (0.0, 0.0, 1.0)), (2, (0.0, 2.0, 0.0)))
+				translateFactor 10.0
+				navigationToggleButtonIndex 11
+				zoomToggleButtonIndex 10
+				deviceGlyphType Cone
+				showScreenCenter true
+			endsection
+			
+			section JoystickNavigationTool
+				numButtons 12
+				toggleButtonIndices (0,1,2, 9, 10)
+				rotateFactor 3.14159
+				rotationalAxes ((3, (1.0, 0.0, 0.0)), (4, (0.0, 0.0, 1.0)), (5, (0.0, 1.0, 0.0)))
+				translateFactor 10.0
+				translationalAxes ((0, (1.0, 0.0, 0.0)), (1, (0.0, 0.0, 1.0)), (2, (0.0, 1.0, 0.0)))
+				navigationToggleButtonIndex 11
+				deviceGlyphType Cone
+			endsection
+			
+			section ViewpointFileNavigationTool
+				viewpointFileName CurveEditorTool0001.dat
+				showKeyframes false
+				autostart true
+			endsection
+			
+			section RayMenuTool
+				useEyeRay false
+				initialMenuOffset 6.0
+				interactWithWidgets true
+			endsection
+			
+			section RayScreenMenuTool
+				useEyeRay false
+				interactWithWidgets true
+			endsection
+			
+			section TransformTool
+				numButtons 1
+			endsection
+			
+			section OffsetTool
+				offset translate (0.0, 10.0, 0.0)
+			endsection
+			
+			section WaldoTool
+				linearScale 0.333
+				angularScale 0.333
+			endsection
+			
+			section InputDeviceTool
+				createInputDevice false
+				newDeviceNumButtons 2
+			endsection
+			
+			section RayInputDeviceTool
+				rotateFactor 3.0
+			endsection
+			
+			section ButtonInputDeviceTool
+				numButtons 10
+				translateFactor 5.0
+				rotateFactor 60.0
+			endsection
+			
+			section SpaceBallTool
+				translateFactor 5.0
+				rotateFactor 3.14159
+				toggleButtonIndices (9, 10, 11)
+				deviceGlyphType Cone
+			endsection
+			
+			section FlashlightTool
+				lightColor (1.0, 1.0, 1.0)
+				lightSpotCutoff 90.0
+				lightSpotExponent 50.0
+			endsection
+			
+			section MouseNavTool
+				toolClass MouseNavigationTool
+				deviceName0 Mouse
+				device0ButtonIndex0 0
+				device0ButtonIndex1 1
+				device0ButtonIndex2 3
+				device0ValuatorIndex0 0
+			endsection
+			
+			section FPSNavTool
+				toolClass FPSNavigationTool
+				deviceName0 Mouse
+				device0ButtonIndex0 5
+				device0ButtonIndex1 7
+				device0ButtonIndex2 9
+				device0ButtonIndex3 8
+				device0ButtonIndex4 6
+			endsection
+			
+			section MenuTool1
+				toolClass RayScreenMenuTool
+				deviceName0 Mouse
+				device0ButtonIndex0 2
+			endsection
+			
+			section WandMenuTool1
+				toolClass RayScreenMenuTool
+				deviceName0 wand1
+				device0ButtonIndex0 5
+			endsection
+
+			section WandMenuTool2
+				toolClass RayMenuTool
+				deviceName0 wand2
+				device0ButtonIndex0 5
+			endsection
+		
+			section WandNavTool1
+				toolClass WandNavigationTool
+				deviceName0 wand1
+				device0ButtonIndex0 3
+				device0ButtonIndex1 2
+			endsection
+
+			section WandNavTool2
+				toolClass WandNavigationTool
+				deviceName0 wand2
+				device0ButtonIndex0 3
+				device0ButtonIndex1 2
+			endsection
+
+        		section WandFlyTool1
+                                toolClass ValuatorFlyTurnNavigationTool
+                                deviceName0 wand1
+				device0ValuatorIndex0 1
+				device0ValuatorIndex1 0
+                        endsection
+
+		endsection
+	endsection
+endsection
