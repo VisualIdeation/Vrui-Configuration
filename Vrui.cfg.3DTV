@@ -120,6 +120,8 @@ section Vrui
 			panningViewport true
 			navigate true
 			toolKillZonePos (0,0)
+			showCredit true
+			showCreditFontName HelveticaMediumUpright12
 			showFps false
 			showFpsFontName HelveticaMediumUpright12
 			protectScreens false
@@ -361,6 +363,8 @@ section Vrui
 			autoScreenSize false
 			panningViewport false
 			navigate false
+			showCredit true
+			showCreditFontName HelveticaMediumUpright12
 			showFps true
 			showFpsFontName HelveticaMediumUpright12
 			protectScreens false
